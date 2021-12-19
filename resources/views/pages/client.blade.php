@@ -1,6 +1,6 @@
 @extends('mainLayout')
 @section('content')
-                
+
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -14,7 +14,7 @@ Client Upload
         </div>
         </div>
         <div class="col-md-8">
-            
+
 
             <form action="{{ route('file-import') }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -31,10 +31,10 @@ Client Upload
                     <button class="btn btn-primary">Import data</button>
                 </div>
             </div>
-            
-            
+
+
         </form>
-            
+
         </div>
     </div>
 
@@ -66,9 +66,9 @@ Client Upload
                     <tr>
                         <th>Client Name</th>
                         <th>Client Email</th>
-                        <th>Gorup Name</th>                        
-                        <th>Send Email</th>                        
-                        <th>Action</th>                        
+                        <th>Gorup Name</th>
+                        <th>Send Email</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -78,7 +78,7 @@ Client Upload
                         <td>{{$aClient->clientEmail}}</td>
                         <td>{{$aClient->groupName}}</td>
                         <td>
-                            <a href="#" class="btn btn-primary btn-icon-split btn-sm">
+                            <a href="{{ route('basic_email',$aClient->id) }}" class="btn btn-primary btn-icon-split btn-sm">
                                 <span class="icon text-white-50">
                                     <i class="fas fa-flag"></i>
                                 </span>
@@ -87,7 +87,7 @@ Client Upload
                         </td>
                         <td>
                             <form action="{{ route('client.delete',$aClient->id) }}" method="POST">
-   
+
                                 <a href="{{ route('client.edit',$aClient->id) }}" class="btn btn-primary btn-circle btn-sm"><i class="fas fa-edit"></i></a>
                                 @csrf
                                 @method('DELETE')

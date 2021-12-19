@@ -1,6 +1,6 @@
 @extends('mainLayout')
 @section('content')
-                
+
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -38,25 +38,22 @@
                 <thead>
                     <tr>
                         <th>Group Name</th>
-                        <th>View Templete</th>
-                        <th>Send Email</th>                        
-                        <th>Action</th>                        
+                        <th>Mail Subject</th>
+                        <th>Mail Sender Email</th>
+                        <th>Sender Name</th>
+                        <th>Send Email</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                 @foreach ($groups as $aGroup)
                     <tr>
                         <td>{{$aGroup->groupname}}</td>
+                        <td>{{$aGroup->mailSubject}}</td>
+                        <td>{{$aGroup->fromMail}}</td>
+                        <td>{{$aGroup->fromName}}</td>
                         <td>
-                            <a href="#" class="btn btn-primary btn-icon-split btn-sm">
-                                <span class="icon text-white-50">
-                                    <i class="fas fa-flag"></i>
-                                </span>
-                                <span class="text">View Templete</span>
-                            </a>
-                        </td>
-                        <td>
-                        <a href="#" class="btn btn-primary btn-icon-split btn-sm">
+                        <a href="{{ route('bulk_email',$aGroup->id) }}" class="btn btn-primary btn-icon-split btn-sm">
                             <span class="icon text-white-50">
                                 <i class="fas fa-flag"></i>
                             </span>
@@ -65,7 +62,7 @@
                         </td>
                         <td>
                             <form action="{{ route('group.delete',$aGroup->id) }}" method="POST">
-   
+
                                 <a href="{{ route('group.edit',$aGroup->id) }}" class="btn btn-primary btn-circle btn-sm"><i class="fas fa-edit"></i></a>
                                 @csrf
                                 @method('DELETE')
@@ -90,7 +87,7 @@
 </div>
 
 <!-- /.container-fluid -->
-    
+
     <script>
         $(document).ready(function() {
             $('#dataTable').DataTable();

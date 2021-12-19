@@ -34,6 +34,15 @@
                         <div class="form-group row">
                             <x-input id="groupname" class="form-control form-control-user" type="text" name="groupname" :value="old('groupname')" placeholder="Group Name" required autofocus />
                         </div>
+                        <div class="form-group row">
+                            <x-input id="mailSubject" class="form-control form-control-user" type="text" name="mailSubject" :value="old('mailSubject')" placeholder="Mail Subject" required autofocus />
+                        </div>
+                        <div class="form-group row">
+                            <x-input id="fromMail" class="form-control form-control-user" type="text" name="fromMail" :value="old('fromMail')" placeholder="Send From Email Address" required autofocus />
+                        </div>
+                        <div class="form-group row">
+                            <x-input id="fromName" class="form-control form-control-user" type="text" name="fromName" :value="old('fromName')" placeholder="Sender Name" required autofocus />
+                        </div>
                         <div class="form-group">
                             <!-- <x-input id="email" class="form-control form-control-user" type="email" name="email" :value="old('email')" placeholder="Email Address" required /> -->
                             <textarea class="ckeditor form-control form-control-user" name="templete" :value="old('templete')" placeholder="templete" required></textarea>

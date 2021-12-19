@@ -17,10 +17,12 @@ class CreateGroupsTable extends Migration
             $table->id();
             $table->string('groupname');
             $table->longText('templete');
+            $table->longText('mailSubject');
+            $table->longText('fromMail');
+            $table->longText('fromName');
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      *

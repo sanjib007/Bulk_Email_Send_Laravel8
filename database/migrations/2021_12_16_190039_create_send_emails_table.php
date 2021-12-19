@@ -18,6 +18,9 @@ class CreateSendEmailsTable extends Migration
             $table->string('clientName');
             $table->string('clientEmail');
             $table->string('groupName');
+            $table->string('mailSubject');
+            $table->string('fromMail');
+            $table->string('fromName');
             $table->longText('templete');
             $table->boolean('confirmedSend');
             $table->timestamps();

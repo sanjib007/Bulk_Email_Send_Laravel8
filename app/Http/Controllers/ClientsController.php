@@ -83,7 +83,18 @@ class ClientsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'clientName' => 'required',
+            'clientEmail' => 'required',
+            'groupName' => 'required',
+        ]);
+        $client = Client::where('id', $id)->first();
+        $client->clientName = $request->clientName;
+        $client->clientEmail = $request->clientEmail;
+        $client->groupName = $request->groupName;
+        $client->update();
+
+        return redirect()->route('client')->with('success','Updated successfully');
     }
 
     /**
@@ -94,13 +105,17 @@ class ClientsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $client = Client::where('id', $id)->first();
+        $client->delete();
+
+        return redirect()->route('client')
+            ->with('success','Deleted successfully');
     }
 
     public function fileImport(Request $request)
     {
-        $aTEST = Excel::import(new ClientImport, $request->file('file')->store('temp'));
-        dd($aTEST);
+        //dd($request);
+        Excel::import(new ClientImport, $request->file);
         return back();
     }
 }

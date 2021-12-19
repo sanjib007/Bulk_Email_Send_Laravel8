@@ -39,5 +39,9 @@ Route::put('/clietnUpdate/{id}', [ClientsController::class, 'update'])->middlewa
 Route::delete('/clientDestory/{id}', [ClientsController::class, 'destroy'])->middleware(['auth'])->name('client.delete');
 Route::post('/file-import', [ClientsController::class, 'fileImport'])->middleware(['auth'])->name('file-import');
 
+Route::get('/basic_email/{id}', [\App\Http\Controllers\EmailSendController::class, 'index'])->middleware(['auth'])->name('basic_email');
+Route::get('/bulk_email/{id}', [\App\Http\Controllers\EmailSendController::class, 'bulk_email'])->middleware(['auth'])->name('bulk_email');
+Route::get('/sentEmail', [\App\Http\Controllers\EmailSendController::class, 'sentEmail'])->middleware(['auth'])->name('sentEmail');
+
 
 require __DIR__.'/auth.php';

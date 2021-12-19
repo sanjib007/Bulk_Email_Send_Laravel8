@@ -11,6 +11,9 @@ class Group extends Model
 
     protected $fillable = [
         'groupname',
-        'templete'
+        'templete',
+        'mailSubject',
+        'fromMail',
+        'fromName',
     ];
 }

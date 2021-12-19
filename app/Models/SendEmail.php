@@ -13,6 +13,9 @@ class SendEmail extends Model
         'clientName',
         'clientEmail',
         'groupName',
+        'mailSubject',
+        'fromMail',
+        'fromName',
         'templete',
         'confirmedSend',
     ];

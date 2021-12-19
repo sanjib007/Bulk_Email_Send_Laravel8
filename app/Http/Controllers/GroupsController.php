@@ -39,6 +39,9 @@ class GroupsController extends Controller
         $request->validate([
             'groupname' => 'required',
             'templete' => 'required',
+            'mailSubject' => 'required',
+            'fromMail' => 'required',
+            'fromName' => 'required',
         ]);
         $input = $request->all();
         Group::create($input);
@@ -77,11 +80,18 @@ class GroupsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'groupname' => 'required',
+            'templete' => 'required',
+            'mailSubject' => 'required',
+            'fromMail' => 'required',
+            'fromName' => 'required',
+        ]);
         $group = Group::where('id', $id)->first();
         $group->groupname = $request->groupname;
         $group->templete = $request->templete;
         $group->update();
-    
+
         return redirect()->route('dashboard')->with('success','Updated successfully');
     }
 
@@ -95,7 +105,7 @@ class GroupsController extends Controller
     {
         $group = Group::where('id', $id)->first();
         $group->delete();
-    
+
         return redirect()->route('dashboard')
                         ->with('success','Deleted successfully');
     }
