@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Group;
+use App\Models\SendEmail;
 use Illuminate\Http\Request;
 
 class GroupsController extends Controller
@@ -15,7 +16,11 @@ class GroupsController extends Controller
     public function index()
     {
         $groups = Group::all();
-        return view('pages.admin', ['groups' => $groups]);
+
+        $mails = SendEmail::where('confirmedSend', '<=', false)->get();
+        $mailsCount = $mails->count();
+
+        return view('pages.admin', ['groups' => $groups, 'mailsCount' => $mailsCount]);
     }
 
     /**
@@ -90,6 +95,9 @@ class GroupsController extends Controller
         $group = Group::where('id', $id)->first();
         $group->groupname = $request->groupname;
         $group->templete = $request->templete;
+        $group->mailSubject = $request->mailSubject;
+        $group->fromMail = $request->fromMail;
+        $group->fromName = $request->fromName;
         $group->update();
 
         return redirect()->route('dashboard')->with('success','Updated successfully');

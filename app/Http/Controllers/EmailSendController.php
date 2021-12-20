@@ -52,7 +52,7 @@ class EmailSendController extends Controller
     }
 
     public function sentEmail(){
-        $mailInfo = SendEmail::all();
+        $mailInfo = SendEmail::where('confirmedSend', 0)->get();
         foreach ($mailInfo as $aMail){
             $details = [
                 'templete'=> $aMail->templete,
@@ -63,7 +63,29 @@ class EmailSendController extends Controller
             ];
 
             Mail::to($aMail->clientEmail)->send(new \App\Mail\ClientMail($details));
+            $aMail->confirmedSend = true;
+            $aMail->update();
         }
+
+        return redirect()->route('dashboard')->with('success','Mail sent by job.');
+    }
+
+    public function sentEmailCron(){
+        $mailInfo = SendEmail::where('confirmedSend', 0)->limit(2)->get();
+        foreach ($mailInfo as $aMail){
+            $details = [
+                'templete'=> $aMail->templete,
+                'mailSubject'=> $aMail->mailSubject,
+                'fromMail'=> $aMail->fromMail,
+                'fromName'=> $aMail->fromName,
+                'clientName'=> $aMail->clientName,
+            ];
+
+            Mail::to($aMail->clientEmail)->send(new \App\Mail\ClientMail($details));
+            $aMail->confirmedSend = true;
+            $aMail->update();
+        }
+
     }
 
     /**

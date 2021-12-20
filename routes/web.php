@@ -43,5 +43,12 @@ Route::get('/basic_email/{id}', [\App\Http\Controllers\EmailSendController::clas
 Route::get('/bulk_email/{id}', [\App\Http\Controllers\EmailSendController::class, 'bulk_email'])->middleware(['auth'])->name('bulk_email');
 Route::get('/sentEmail', [\App\Http\Controllers\EmailSendController::class, 'sentEmail'])->middleware(['auth'])->name('sentEmail');
 
+//for cron
+Route::get('/sentEmailCron', [\App\Http\Controllers\EmailSendController::class, 'sentEmailCron'])->name('sentEmailCron');
+
+Route::get('/sendEmailbyJob' , function(){
+    Artisan::call('schedule:run');
+    return 'OK';
+});
 
 require __DIR__.'/auth.php';
